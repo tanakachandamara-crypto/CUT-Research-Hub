@@ -1,0 +1,11 @@
+@echo off
+setlocal
+cd /d "%~dp0"
+call build.bat
+if errorlevel 1 exit /b 1
+if not exist build\test-classes mkdir build\test-classes
+javac --release 17 -encoding UTF-8 -cp build\classes -d build\test-classes test\*.java
+if errorlevel 1 exit /b 1
+java -cp "build/classes;build/test-classes" HubTests
+if errorlevel 1 exit /b 1
+echo Tests completed.
