@@ -46,7 +46,7 @@ Reject keeps the paper out of the target repository. Cancel leaves the request u
 
 Students submit a new paper from a fork of a researcher/admin repository. This version merges additions; it does not edit or merge revisions to existing papers. Researcher registration is self-selected for the classroom workflow. The initial setup administrator is created only while no accounts exist; existing administrator accounts continue to work.
 
-## Structure you can explain
+## Structure 
 
 - `model`: `User`, its Student/Researcher/Admin subclasses, `HubRepository`, `Paper`, `PullRequest`, and history actions.
 - `core/Hub.java`: local storage, account registration, login, save/load, backups.
@@ -56,27 +56,6 @@ Students submit a new paper from a fork of a researcher/admin repository. This v
 - `test`: dependency-free core regression checks and a desktop GUI smoke test.
 
 The design demonstrates encapsulation, inheritance, abstract classes, polymorphism, composition, collections, exceptions and file persistence. It uses a model/service/view separation; it is not a full MVP implementation.
-
-## Saved data and backups
-
-The original `hub_data/hub.ser` from the supplied ZIP is included unchanged. It contains no registered users or repositories. Saves keep the same four-object serialization layout and `serialVersionUID` values to support existing data. Old title-only pull requests can still be closed, but they contain no paper to copy. Forks created by the old program have no recorded parent; create a new fork to use the paper submission workflow.
-
-Successful changes save automatically. A failed save shows an error, keeps changes in memory, and leaves a Save button for retrying. Closing/signing out is blocked while saving is still failing. Saves use a temporary file followed by replacement; a damaged file blocks startup instead of silently starting over and overwriting it.
-
-Admin backups are separate timestamped `.ser` files inside `hub_data/backups`. To restore, close the app, keep a copy of the current `hub_data/hub.ser`, then copy a chosen backup into that folder and name it `hub.ser`.
-
-The theme preference is stored through Java Preferences on the current computer. No account data leaves this computer.
-
-## Improvements in this edition
-
-- Replaced the welcome-only dashboard with totals, searchable/sortable repository tables, paper reading and clear actions.
-- Rebuilt login/registration navigation so registration works after sign-out.
-- Applied consistent CUT blue/gold colours, readable contrast, spacing and a working theme toggle.
-- Fixed forks to copy papers and remember their source.
-- Added an actual student contribution path, commit recording, review status, and paper addition on merge.
-- Enforced ownership, duplicate email/name rules, repository quotas, and reviewed-request protection.
-- Added stronger salted password storage with automatic upgrade of old password hashes after successful login.
-- Added safer saves, independent backups, startup error handling, scripts and regression tests.
 
 ## Project scope
 
